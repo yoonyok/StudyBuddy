@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thirsty for Study</title>
+</head>
+<body>
+
+
+<div class = 'container'>
+    {% block content %}
+    <h1>Thirsty for Study</h1>
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    {% endif %}
+    <form method ="GET" action="">
+        <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
+        <input type="submit" value="Search"/>
+    </form>
+
+        {% for post in posts %}
+        <a href="{{ post.slug }}"> {{ post.title }}</a> <br/>
+
+        {% endfor %}
+
+    <p><a href="create/">add a new post</a></p>
+
+    {% endblock content %}
+</div>
+
+
+</body>
+</html>

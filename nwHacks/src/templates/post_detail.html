@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <title>{{ post.title }}</title>
+
+    <h1> {{ post.title }} </h1>
+    <p> Course: {{ post.course }} </p>
+    <p> Content: {{ post.content }} </p> <br/>
+    <p> Preferred Location:  {{ post.preferred_location }}  </p><br/>
+    <p> Created: {{ post.timestamp }} </p> <br/>
+    <p> Modified: {{ post.updated }} </p> <br/>
+
+    <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
+    <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>
+
+{% endblock content %}

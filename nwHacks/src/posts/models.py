@@ -37,3 +37,15 @@ class Post(models.Model):
         self.slug = slugify(self.title)
         return super(Post, self).save(*args, **kwargs)
 
+class Comment(models.Model):
+    content = models.TextField(max_length=1000)
+    post = models.ForeignKey(Post)
+    timestamp = models.DateTimeField(editable=False)
+
+    def save(self, *args, **kwargs):
+        # only update timestamp when the object is first created
+        # when id is not set yet
+        if not self.id:
+            self.timestamp = timezone.now()
+        self.updated = timezone.now()
+        return super(Comment, self).save(*args, **kwargs)

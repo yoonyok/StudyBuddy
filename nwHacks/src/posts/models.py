@@ -13,14 +13,12 @@ class Post(models.Model):
     updated = models.DateTimeField(editable=False)
     timestamp = models.DateTimeField(editable=False)
     phone_number = models.CharField(max_length=100, blank=True, null=True)
-    date = models.CharField(max_length=100)
-    start_time = models.CharField(max_length=100)
-    end_time = models.CharField(max_length=100)
+    start_time = models.DateTimeField(default=timezone.now)
+    end_time = models.DateTimeField(default=timezone.now)
     address_number = models.CharField(max_length=100)
     street_name = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=100)
-    # views = models.IntegerField() possible use later for counting number of times a post is viewed
     slug = models.SlugField(unique=True, editable=False)  # used for generating readable urls
 
     def __unicode__(self):

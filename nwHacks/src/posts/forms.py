@@ -1,5 +1,6 @@
 from django import forms
 from .models import Post
+from django.contrib.admin import widgets
 
 class PostForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -11,7 +12,6 @@ class PostForm(forms.ModelForm):
             'content',
             'preferred_location',
             'phone_number',
-            'date',
             'start_time',
             'end_time',
             'address_number',

@@ -3,6 +3,7 @@ from .models import Post
 from .forms import PostForm
 from django.db.models import Q
 from django.contrib import messages
+from django.utils import timezone
 
 def posts_home(request):
     posts = Post.objects.all()
@@ -14,6 +15,11 @@ def posts_home(request):
             Q(content__icontains=query) |
             Q(course__icontains=query)
         ).distinct()
+
+    for post in posts:
+        if post.end_time < timezone.now():
+            post.delete()
+
     context_dict = {"posts": posts, "query": query}
     return render(request, "base.html", context_dict)
 

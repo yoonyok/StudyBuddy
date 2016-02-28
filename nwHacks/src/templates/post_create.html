@@ -1,18 +1,72 @@
 {% extends "base.html" %}
-<script type="text/javascript" src="/my_admin/jsi18n/"></script>
-<script type="text/javascript" src="/media/admin/js/core.js"></script>
+
 <!-- template inheritance, replace block content from parent template -->
 <!-- can also call {{ block.super }} to have parent content display as well -->
 {% block content %}
-  <h1>Create a post</h1>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!--Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+        <!-- Main jQuery -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <style>
+            .login-bg {
+
+            }
+            .create {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-color: #000;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 10%;
+            }
+            .create h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 50px;
+            text-transform: uppercase;
+            text-align: center;
+            padding-bottom: 50px;
+            }
+            .btn-custom input {
+            background-color: #fff;
+            text-transform: uppercase;
+            border-color: #000;
+            border-radius: 8px;
+
+            }
+        </style>
+
+        <title>Login</title>
+    </head>
+{% load bootstrap %}
+<script type="text/javascript" src="/my_admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
+<div class="create">
+    <h1>Create a post</h1>
 
   <!-- select form method to be POST, default method is GET for forms -->
-  <form method="POST" action="">
+    <form method="POST" action="">
        <!-- csrf token needed for security, ensures that the post data is coming from your site only -->
-      {% csrf_token %}
-     {{ form.as_p }}
-  <input type ="submit" value="Create Post" />
-  <input type ="submit" name="cancel" value="Cancel" />
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="btn-custom">
+            <div class="col-md-8 col-md-offset-2">
+                <input type ="submit" value="Create Post" />
+                <input type ="submit" name="cancel" value="Cancel" />
+            </div>
+        </div>
   </form>
+</div>
+
 
 {% endblock content %}

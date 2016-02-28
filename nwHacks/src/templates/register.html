@@ -57,17 +57,14 @@
             {% csrf_token %}
 
             <div class="form-row">
-              {{ form.username.errors }}
               {{ form.username|bootstrap_horizontal }}
             </div>
 
             <div class="form-row">
-              {{ form.password1.errors }}
               {{ form.password1|bootstrap_horizontal }}
             </div>
 
             <div class="form-row">
-              {{ form.password2.errors }}
               {{ form.password2|bootstrap_horizontal }}
             </div>
             <div class="btn-custom">

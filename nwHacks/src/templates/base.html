@@ -37,6 +37,7 @@
             <th>Title</th>
             <th>Start Time</th>
             <th>End Time</th>
+            <th>Attendees</th>
         </tr>
         {% for post in posts %}
         <tr>
@@ -45,6 +46,7 @@
             <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
             <td>{{ post.start_time}}</td>
             <td>{{ post.end_time }}</td>
+            <td>{{ post.attendees }}</td>
         </tr>
         {% endfor %}
     </table>

@@ -24,7 +24,8 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, editable=False)  # used for generating readable urls
     lat = models.FloatField(blank=True, null=True, editable=False)
     lon = models.FloatField(blank=True, null=True, editable=False)
-
+    attendees = models.IntegerField(default=1)
+    
     def __unicode__(self):
         return self.title
 

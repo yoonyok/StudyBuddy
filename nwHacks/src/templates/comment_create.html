@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+<!-- template inheritance, replace block content from parent template -->
+<!-- can also call {{ block.super }} to have parent content display as well -->
+{% block content %}
+  <h1>Create a post</h1>
+
+  <!-- select form method to be POST, default method is GET for forms -->
+  <form method="POST" action="">
+       <!-- csrf token needed for security, ensures that the post data is coming from your site only -->
+      {% csrf_token %}
+     {{ form.as_p }}
+  <input type ="submit" value="Create Post" />
+  <input type ="submit" name="cancel" value="Cancel" />
+  </form>
+
+{% endblock content %}

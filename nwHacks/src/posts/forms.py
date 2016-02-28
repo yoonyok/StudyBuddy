@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -20,3 +20,8 @@ class PostForm(forms.ModelForm):
             'postal_code',
             'city',
         ]
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ['content']

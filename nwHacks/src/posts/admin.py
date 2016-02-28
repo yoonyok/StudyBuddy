@@ -10,7 +10,6 @@ class PostModelAdmin(admin.ModelAdmin):
     list_filter = ["updated", "timestamp"]
     search_fields = ["content", "title"]
     readonly_fields = ["timestamp", "updated", "slug"]
-    #prepopulated_fields = {"slug": ("title",)}
 
     class Meta:
         model = Post

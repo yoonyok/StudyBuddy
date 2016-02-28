@@ -1,5 +1,8 @@
 from django import forms
+from .models import Post
+from django.contrib.admin import widgets
 from .models import Post, Comment
+
 
 class PostForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -10,15 +13,12 @@ class PostForm(forms.ModelForm):
             'author',
             'course',
             'content',
-            'preferred_location',
             'phone_number',
-            'date',
             'start_time',
             'end_time',
-            'address_number',
-            'street_name',
-            'postal_code',
+            'address',
             'city',
+            'postal_code',
         ]
 
 class CommentForm(forms.ModelForm):

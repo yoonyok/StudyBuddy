@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.utils import timezone
 from django.db import models
 from django.template.defaultfilters import slugify
+from googlemaps import Client
+
 
 # Create your models here.
 
@@ -10,19 +12,17 @@ class Post(models.Model):
     author = models.CharField(max_length=100)
     course = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    preferred_location = models.CharField(max_length=50, blank=True, null=True)
     updated = models.DateTimeField(editable=False)
     timestamp = models.DateTimeField(editable=False)
     phone_number = models.CharField(max_length=100, blank=True, null=True)
-    date = models.CharField(max_length=100)
-    start_time = models.CharField(max_length=100)
-    end_time = models.CharField(max_length=100)
-    address_number = models.CharField(max_length=100)
-    street_name = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=100, blank=True, null=True)
+    start_time = models.DateTimeField(default=timezone.now)
+    end_time = models.DateTimeField(default=timezone.now)
+    address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    # views = models.IntegerField() possible use later for counting number of times a post is viewed
+    postal_code = models.CharField(max_length=100, blank=True, null=True)
     slug = models.SlugField(unique=True, editable=False)  # used for generating readable urls
+    lat = models.FloatField(blank=True, null=True, editable=False)
+    lon = models.FloatField(blank=True, null=True, editable=False)
 
     def __unicode__(self):
         return self.title
@@ -35,6 +35,12 @@ class Post(models.Model):
             self.timestamp = timezone.now()
         self.updated = timezone.now()
         self.slug = slugify(self.title)
+        gmaps = Client(key="AIzaSyDPPebmy_mg8ho15JXng1WD2ByUsYrT7bY")
+        results = gmaps.geocode(address=self.address + ", " + self.city, region="CA")
+        if results:
+            self.lat = results[0]['geometry']['location']['lat']
+            self.lon = results[0]['geometry']['location']['lng']
+
         return super(Post, self).save(*args, **kwargs)
 
 class Comment(models.Model):

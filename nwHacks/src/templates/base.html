@@ -1,6 +1,59 @@
 <!DOCTYPE html>
 
 <html lang="en">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/posts/">
+                <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
+                Study Buddy
+            </a>
+        </div>
+        <form class="navbar-form navbar-left" method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter a search" name="q" value="{% if query %}{{ query }}{% endif %}">
+            </div>
+            <input type="submit" class="btn btn-default" value="Search"/>
+        </form>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/posts/">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                Home
+            </a></li>
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="/posts/create">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        Create post
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        Welcome, {{ user.username }}
+                    </a>
+                </li>
+                <li><a href="logout/">
+                    <span class="glyphicon glyphicon-eject" aria-hidden="true"></span>
+                    Logout
+                </a>
+                </li>
+            {% else %}
+                <li><a href="/posts/login/">
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                    Login
+                </a>
+                </li>
+                <li><a href="/posts/register/">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    Register
+                </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta charset="UTF-8">
@@ -10,13 +63,7 @@
             height: 100%;
             width: 100%;
             margin: 0 auto;
-            padding: 0px 75px 0px 75px;
-        }
-        #homebar, #searchbar {
-            padding-bottom: 20px;
-        }
-        #homebar {
-            background-color: transparent;
+            padding: 40px 75px 0px 75px;
         }
         #map {
             height: 100%;
@@ -26,26 +73,12 @@
 </head>
 
 <body>
-
-<div id="homebar">
-    <h1><a href="/posts">Study Buddy</a></h1>
-    {% if user.is_authenticated %}
-        <h3>Welcome, {{ user.username }}</h3>
-        <a href="/posts/logout/">Logout</a>
-    {% else %}
-        <a href="/posts/login/">Login</a> or <a href="/posts/register/">Register</a>
-    {% endif %}
-</div>
 {% block content %}
     {% if messages %}
         {% for message in messages %}
             {{ message }}
         {% endfor %}
     {% endif %}
-    <form id="searchbar" method ="GET" action="">
-        <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
-        <input type="submit" value="Search"/>
-    </form>
     <table class="table table-striped">
         <tr>
             <th>Course</th>
@@ -68,9 +101,6 @@
     </table>
     {#        <p><a href="create/">add a new post</a></p>#}
 
-    {% if user.is_authenticated %}
-        <p><a href="create/">add a new post</a></p>
-    {% endif %}
 {% endblock content %}
 </div>
 
@@ -83,116 +113,116 @@
 
 <div id="map"></div>
 {#<<<<<<< HEAD#}
-    <script>
-        // Note: This example requires that you consent to location sharing when
-        // prompted by your browser. If you see the error "The Geolocation service
-        // failed.", it means you probably did not give permission for the browser to
-        // locate you.
+<script>
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
 
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 49.2827, lng: 123.1207},
-                zoom: 15
-            });
-            // Try HTML5 geolocation.
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 49.2827, lng: 123.1207},
+            zoom: 15
+        });
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
 
-                    var marker = new google.maps.Marker({
-                        position: pos,
-                        map: map,
-                        title: "I'm here"
-                    });
-
-                    var infowindow = new google.maps.InfoWindow({
-                        content: "You are here"});
-
-                    marker.addListener('click',function() {
-                        infowindow.open(map,marker);
-                    });
-
-                    //infoWindow.setPosition(pos);
-                    //infoWindow.setContent('Location found.');
-                    infowindow.open(map,marker);
-                    map.setCenter(pos);
-                }, function() {
-                    handleLocationError(true, infoWindow, map.getCenter());
-{#=======#}
-{#<script>#}
-{#    // Note: This example requires that you consent to location sharing when#}
-{#    // prompted by your browser. If you see the error "The Geolocation service#}
-{#    // failed.", it means you probably did not give permission for the browser to#}
-{#    // locate you.#}
-{##}
-{#    function initMap() {#}
-{#        var map = new google.maps.Map(document.getElementById('map'), {#}
-{#            center: {lat: 49.2827, lng: 123.1207},#}
-{#            zoom: 15#}
-{#        });#}
-{#        //var infoWindow = new google.maps.InfoWindow({map: map});#}
-{#        // Try HTML5 geolocation.#}
-{#        if (navigator.geolocation) {#}
-{#            navigator.geolocation.getCurrentPosition(function(position) {#}
-{#                var pos = {#}
-{#                    lat: position.coords.latitude,#}
-{#                    lng: position.coords.longitude#}
-{#                };#}
-{##}
-{#                var marker = new google.maps.Marker({#}
-{#                    position: pos,#}
-{#                    map: map,#}
-{#                    title: "I'm here"#}
-{#>>>>>>> d23ab1eda10d6c844a8cd560f510cc5a65e40992#}
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    title: "I'm here"
                 });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
-            }
 
-            plotAllGeoLocations(map)
+                var infowindow = new google.maps.InfoWindow({
+                    content: "You are here"});
 
+                marker.addListener('click',function() {
+                    infowindow.open(map,marker);
+                });
 
-        }
-
-        function plotAllGeoLocations(map) {
-            var filteredLats = {{ post_lats|safe }}
-            var filteredLongs = {{ post_longs|safe }}
-            var infos = {{post_info|safe}}
-            for (var i = 0; i < filteredLats.length; i++) {
-                var markerLatLng = new google.maps.LatLng(filteredLats[i], filteredLongs[i]);
-                createMarker(markerLatLng, infos[i],map);
-            }
-        }
-
-        function createMarker(latlon, infocontent,map){
-            var marker = new google.maps.Marker({
-                position: latlon,
-                map: map
+                //infoWindow.setPosition(pos);
+                //infoWindow.setContent('Location found.');
+                infowindow.open(map,marker);
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+                {#=======#}
+                {#<script>#}
+                {#    // Note: This example requires that you consent to location sharing when#}
+                {#    // prompted by your browser. If you see the error "The Geolocation service#}
+                {#    // failed.", it means you probably did not give permission for the browser to#}
+                {#    // locate you.#}
+                {##}
+                {#    function initMap() {#}
+                {#        var map = new google.maps.Map(document.getElementById('map'), {#}
+                {#            center: {lat: 49.2827, lng: 123.1207},#}
+                {#            zoom: 15#}
+                {#        });#}
+                {#        //var infoWindow = new google.maps.InfoWindow({map: map});#}
+                {#        // Try HTML5 geolocation.#}
+                {#        if (navigator.geolocation) {#}
+                {#            navigator.geolocation.getCurrentPosition(function(position) {#}
+                {#                var pos = {#}
+                {#                    lat: position.coords.latitude,#}
+                {#                    lng: position.coords.longitude#}
+                {#                };#}
+                {##}
+                {#                var marker = new google.maps.Marker({#}
+                {#                    position: pos,#}
+                {#                    map: map,#}
+                {#                    title: "I'm here"#}
+                {#>>>>>>> d23ab1eda10d6c844a8cd560f510cc5a65e40992#}
             });
-            var infoWindow = new google.maps.InfoWindow({
-                content: infocontent
-            });
-            marker.addListener('click',function() {
-                infoWindow.open(map,marker);
-            });
-
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
         }
 
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                    'Error: The Geolocation service failed.' :
-                    'Error: Your browser doesn\'t support geolocation.');
-        }
+        plotAllGeoLocations(map)
 
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kwddcJfGsVOwcIdtVOMwsM_m6X-Ys04&signed_in=true&callback=initMap">
-    </script>
+
+    }
+
+    function plotAllGeoLocations(map) {
+        var filteredLats = {{ post_lats|safe }}
+        var filteredLongs = {{ post_longs|safe }}
+        var infos = {{post_info|safe}}
+        for (var i = 0; i < filteredLats.length; i++) {
+            var markerLatLng = new google.maps.LatLng(filteredLats[i], filteredLongs[i]);
+            createMarker(markerLatLng, infos[i],map);
+        }
+    }
+
+    function createMarker(latlon, infocontent,map){
+        var marker = new google.maps.Marker({
+            position: latlon,
+            map: map
+        });
+        var infoWindow = new google.maps.InfoWindow({
+            content: infocontent
+        });
+        marker.addListener('click',function() {
+            infoWindow.open(map,marker);
+        });
+
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+    }
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kwddcJfGsVOwcIdtVOMwsM_m6X-Ys04&signed_in=true&callback=initMap">
+</script>
 
 </body>
 </html>

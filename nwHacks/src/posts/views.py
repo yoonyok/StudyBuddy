@@ -55,7 +55,7 @@ def post_create(request):
         temp_form = form.save(commit=False)
         temp_form.user = request.user
         temp_form.save()
-        messages.success(request, "post success")
+        # messages.success(request, "post success")
         return redirect('..')
 
 

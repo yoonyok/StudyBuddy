@@ -19,6 +19,7 @@
     <h1>Comment Section</h1>
     {% for comment in comments %}
         <p>{{ comment.content }}</p>
+        <p>{{ comment.timestamp }}</p><br>
     {% endfor %}
 
 

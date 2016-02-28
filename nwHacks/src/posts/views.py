@@ -108,8 +108,3 @@ def attend(request, slug):
     post.attendees = post.attendees + 1
     post.save()
     return redirect('../..')
-
-
-
-
-

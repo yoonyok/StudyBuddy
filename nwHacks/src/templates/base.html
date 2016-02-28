@@ -1,17 +1,19 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
+        html, body {
+            height: 80%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+        }
     </style>
     <title>Thirsty for Study</title>
 </head>
@@ -19,38 +21,38 @@
 
 
 <div class = 'container'>
-    <h1><a href="/posts">Study Buddy</a></h1>
+    <h1 ><a href="/posts">Study Buddy</a></h1>
     {% block content %}
-    {% if messages %}
-    {% for message in messages %}
-    {{ message }}
-    {% endfor %}
-    {% endif %}
-    <form method ="GET" action="">
-        <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
-        <input type="submit" value="Search"/>
-    </form>
-    <table border="1">
-        <tr>
-            <th>Course</th>
-            <th>Location</th>
-            <th>Title</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Attendees</th>
-        </tr>
-        {% for post in posts %}
-        <tr>
-            <td>{{ post.course }}</td>
-            <td>{{ post.address }}</td>
-            <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
-            <td>{{ post.start_time}}</td>
-            <td>{{ post.end_time }}</td>
-            <td>{{ post.attendees }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <p><a href="create/">add a new post</a></p>
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+        <form method ="GET" action="">
+            <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
+            <input type="submit" value="Search"/>
+        </form>
+        <table class="table table-striped">
+            <tr>
+                <th>Course</th>
+                <th>Location</th>
+                <th>Title</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Attendees</th>
+            </tr>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.course }}</td>
+                    <td>{{ post.address }}</td>
+                    <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
+                    <td>{{ post.start_time}}</td>
+                    <td>{{ post.end_time }}</td>
+                    <td>{{ post.attendees }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p><a href="create/">add a new post</a></p>
 
     {% endblock content %}
 </div>
@@ -63,55 +65,56 @@
 
 <div id="map"></div>
 <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
 
-      function initMap() {
+    function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 49.2827, lng: 123.1207},
-          zoom: 15
+            center: {lat: 49.2827, lng: 123.1207},
+            zoom: 15
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
 
-            var marker = new google.maps.Marker({
-            position: pos,
-            map: map,
-            title: "I'm here"
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    title: "I'm here"
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: "You are here"});
+
+                marker.addListener('click',function() {
+                    infowindow.open(map,marker);
+                });
+
+                //infoWindow.setPosition(pos);
+                //infoWindow.setContent('Location found.');
+                infowindow.open(map,marker);
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
             });
-
-            var infowindow = new google.maps.InfoWindow({
-              content: "I am a query"});
-
-            marker.addListener('click',function() {
-             infowindow.open(map,marker);
-            });
-
-            //infoWindow.setPosition(pos);
-            //infoWindow.setContent('Location found.');
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
         } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
         }
 
         plotAllGeoLocations(map)
 
 
-      }
+    }
 
-      function plotAllGeoLocations(map) {
+    function plotAllGeoLocations(map) {
         var filteredLats = {{ post_lats|safe }}
         var filteredLongs = {{ post_longs|safe }}
         var infos = {{post_info|safe}}
@@ -119,28 +122,28 @@
             var markerLatLng = new google.maps.LatLng(filteredLats[i], filteredLongs[i]);
             createMarker(markerLatLng, infos[i],map);
         }
-      }
+    }
 
-      function createMarker(latlon, infocontent,map){
+    function createMarker(latlon, infocontent,map){
         var marker = new google.maps.Marker({
-                 position: latlon,
-                 map: map
+            position: latlon,
+            map: map
         });
         var infoWindow = new google.maps.InfoWindow({
-           content: infocontent
+            content: infocontent
         });
         marker.addListener('click',function() {
-           infoWindow.open(map,marker);
+            infoWindow.open(map,marker);
         });
 
-      }
+    }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+    }
 
 </script>
 <script async defer

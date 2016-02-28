@@ -2,16 +2,25 @@
 
 {% block content %}
     <title>{{ post.title }}</title>
-
-    <h1>{{ post.title }}</h1>
-    <p>Course: {{ post.course }} </p>
-    <p>Time: {{ post.start_time }} - {{ post.end_time }}</p>
-    <p>Preferred Location:  {{ post.preferred_location }}  </p>
-    <p>Author: {{ post.author }}</p>
-    <p>Content: {{ post.content }} </p>
-    <p>Created: {{ post.timestamp }} </p>
-    <p>Modified: {{ post.updated }} </p>
-
+    <style>
+    .elt {
+{#    width: 100px;#}
+{#    height: 100px;#}
+    margin: 10px;
+    float: left;
+{#    background-color: blue;#}
+    }
+    </style>
+    <div class="elt">
+        <ul class="list-group">
+            <li class="list-group-item">Course: {{ post.course }}</li>
+            <li class="list-group-item">Time: {{ post.start_time }} - {{ post.end_time }}</li>
+            <li class="list-group-item">Location:  {{ post.preferred_location }}</li>
+            <li class="list-group-item">Author: {{ post.author }}</li>
+            <li class="list-group-item">Content: {{ post.content }}</li>
+            <li class="list-group-item">Content: {{ post.timestamp }}</li>
+            <li class="list-group-item">Modified: {{ post.updated }}</li>
+        </ul>
     <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
     <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>
     <button><a href="comment/" style="text-decoration:none;"> post comment </a></button>
@@ -22,6 +31,11 @@
         <p>{{ comment.content }}</p>
         <p>{{ comment.timestamp }}</p><br>
     {% endfor %}
+
+    </div>
+    <div class="elt">
+        afljdslka;jfl;kdfjs
+    </div>
 
 
 {% endblock content %}

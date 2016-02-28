@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.utils import timezone
 from datetime import datetime
-
+import json
 
 def posts_home(request):
     posts = Post.objects.all()
@@ -22,7 +22,12 @@ def posts_home(request):
         if post.end_time < timezone.now():
             post.delete()
 
-    context_dict = {"posts": posts, "query": query}
+    allPosts = []
+    for post in posts:
+        allPosts.append(post.address_number + " " + post.street_name + " " + post.city)
+    posts_list = json.dumps(allPosts)
+
+    context_dict = {"posts": posts,"posts_list":posts_list, "query": query}
     return render(request, "base.html", context_dict)
 
 def post_create(request):

@@ -72,7 +72,6 @@
           zoom: 12
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
-
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -104,7 +103,32 @@
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
+
+        var geocoder = new google.maps.Geocoder();
+        var filteredPosts = {{ posts_list|safe }};
+        var fullAddress;
+        for (var i = 0 ; filteredPosts.length; i++) {
+            fullAddress = filteredPosts[i];
+            geocodeAddress(geocoder, map);
+        }
       }
+
+      function geocodeAddress(geocoder, resultsMap) {
+            geocoder.geocode(fullAddress, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+
+      }
+
+
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
@@ -112,6 +136,7 @@
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
       }
+
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kwddcJfGsVOwcIdtVOMwsM_m6X-Ys04&signed_in=true&callback=initMap">

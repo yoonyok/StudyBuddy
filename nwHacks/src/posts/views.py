@@ -38,7 +38,7 @@ def posts_home(request):
 
     allInfo = []
     for post in posts:
-        allInfo.append("Title: " + post.title + "Location: " + post.address )
+        allInfo.append("Title: " + post.title + " " + "Location: " + post.address)
     post_info = json.dumps(allInfo)
 
     context_dict = {"posts": posts, "post_lats": post_lats, "post_longs": post_longs, "query": query, "post_info": post_info}

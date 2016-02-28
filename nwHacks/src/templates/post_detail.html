@@ -3,46 +3,78 @@
 {% block content %}
     <title>{{ post.title }}</title>
     <style>
-        .elt {
-            margin: 10px;
-            float: left;
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
         }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+        .btns-cust {
+            background-color: #fff;
+            text-transform: uppercase;
+            border-color: #000;
+            border-radius: 8px;
+            padding-left: 2%;
+            padding-right: 2%
+        }
+        .btns-cust a {
+            font-size: 12px;
+            color: #000;
+        }
+        .desp-title h1 {
+            text-transform: uppercase;
+            text-size: 20px;
+
+        <!--.comments-area {-->
+            <!--width: 10px;-->
+            <!--height: 110x;-->
+            <!--overflow-y: scroll;-->
+        <!--}-->
 
     </style>
-    <body>
-    <div class="elt">
-        <ul class="list-group">
-            <li class="list-group-item">Course: {{ post.course }}</li>
-            <li class="list-group-item">Time: {{ post.start_time }} - {{ post.end_time }}</li>
-            <li class="list-group-item">Location:  {{ post.address }}, {{ post.city }}</li>
-            {#            <li class="list-group-item">Lat:  {{ post.lat }}</li>#}
-            {#            <li class="list-group-item">Lon:  {{ post.lon }}</li>#}
-            <li class="list-group-item">Author: {{ post.author }}</li>
-            <li class="list-group-item">Contact: {{ post.phone_number }}</li>
-            <li class="list-group-item">Content: {{ post.content }}</li>
-            <li class="list-group-item">Posted: {{ post.timestamp }}</li>
-            <li class="list-group-item">Modified: {{ post.updated }}</li>
-        </ul>
+
+
+    <div class="col-md-6">
+        <div class="desp-title">
+            <h1>Post Description</h1>
+        </div>
+    <table class="table table-striped">
+        <tr><th>Course:</th><td>{{ post.course }}</td></tr>
+        <tr><th>Time:</th><td>{{ post.start_time }} to {{ post.end_time }}</td></tr>
+        <tr><th>Location:</th><td>{{ post.address }}, {{ post.city }}</td></tr>
+        <tr><th>Author:</th><td>{{ post.author }}</td></tr>
+        <tr><th>Contact:</th><td>{{ post.phone_number }}</td></tr>
+        <tr><th>Content:</th><td>{{ post.content }}</td></tr>
+        <tr><th>Posted:</th><td>{{ post.timestamp }}</td></tr>
+        <tr><th>Modified:</th><td>{{ post.updated }}</td></tr>
+    </table>
         {% if user.is_authenticated %}
             {% if user.username == post.user.username %}
-                <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
-                <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>
+                <button class="btns-cust"><a href="modify/" style="text-decoration:none;"> modify post </a></button>
+                <button class="btns-cust"><a href="delete/" style="text-decoration:none;"> delete post </a></button>
             {% else %}
-            <button><a href="attend/" style="text-decoration:none;"> attend </a></button>
+            <button class="btns-cust"><a href="attend/" style="text-decoration:none;"> attend </a></button>
             {% endif %}
-            <button><a href="comment/" style="text-decoration:none;"> post comment </a></button>
+            <button class="btns-cust"><a href="comment/" style="text-decoration:none;"> post comment </a></button>
         {% endif %}
-        <h1>Comment Section</h1>
-        {% for comment in comments %}
-            <p>Author: {{ comment.user.username }}</p>
-            <p>{{ comment.content }}</p>
-            <p>{{ comment.timestamp }}</p><br>
-        {% endfor %}
-
     </div>
-    <div class="elt">
-        <div>
-            <script>
+
+    <div class="col-md-6">
+        <div class="desp-title">
+            <h1>Comment Section</h1>
+        </div>
+        <div class="comments-area">
+            {% for comment in comments %}
+                <p>Author: {{ comment.user.username }}</p>
+                <p>{{ comment.content }}</p>
+                <p>{{ comment.timestamp }}</p><br>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
                 // Note: This example requires that you consent to location sharing when
                 // prompted by your browser. If you see the error "The Geolocation service
                 // failed.", it means you probably did not give permission for the browser to
@@ -88,8 +120,6 @@
                     }
 
                     plotAllGeoLocations(map)
-
-
                 }
 
                 function plotAllGeoLocations(map) {
@@ -105,14 +135,6 @@
                         position: latlon,
                         map: map
                     });
-                    var infoWindow = new google.maps.InfoWindow({
-                        content: "Posted location"
-                    });
-                    infoWindow.open(map,marker);
-                    marker.addListener('click',function() {
-                        infoWindow.open(map,marker);
-                    });
-
                 }
 
                 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -126,7 +148,7 @@
             <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kwddcJfGsVOwcIdtVOMwsM_m6X-Ys04&signed_in=true&callback=initMap">
             </script>
-        </div>
-    </div>
+
+
     </body>
 {% endblock content %}

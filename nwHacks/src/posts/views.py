@@ -30,7 +30,7 @@ def posts_home(request):
 
     allLongs = []
     for post in posts:
-        allLongs.append(post.long)
+        allLongs.append(post.lon)
     post_longs = json.dumps(allLongs)
 
     context_dict = {"posts": posts, "post_lats": post_lats, "post_longs": post_longs, "query": query}

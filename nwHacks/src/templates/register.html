@@ -1,44 +1,131 @@
 <!DOCTYPE html>
 
 <html>
-<head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"></head>
-<title>Register a New User</title>
-<style>
-    html, body {
-        height: 100%;
-        width: 700px;
-        margin: 0 auto;
-        padding: 75px 75px 0px 75px;
-    }
-    #map {
-        height: 100%;
-    }
-</style>
+{#<<<<<<< HEAD#}
+{#<head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"></head>#}
+{#<title>Register a New User</title>#}
+{#<style>#}
+{#    html, body {#}
+{#        height: 100%;#}
+{#        width: 700px;#}
+{#        margin: 0 auto;#}
+{#        padding: 75px 75px 0px 75px;#}
+{#    }#}
+{#    #map {#}
+{#        height: 100%;#}
+{#    }#}
+{#</style>#}
+{##}
+{#<body>#}
+{#<form id="register" method="post">#}
+{##}
+{#    {% csrf_token %}#}
+{##}
+{#    <div>#}
+{#        {{ form.username.errors }}#}
+{#        {{ form.username.label_tag }} {{ form.username }}#}
+{#    </div>#}
+{#    <div>#}
+{#        {{ form.password1.errors }}#}
+{#        {{ form.password1.label_tag }} {{ form.password1 }}#}
+{#    </div>#}
+{#    <div>#}
+{#        {{ form.password2.errors }}#}
+{#        {{ form.password2.label_tag }} {{ form.password2 }}#}
+{#    </div>#}
+{##}
+{#    <br/>#}
+{#    <input type="submit" name="submit" value="Register" />#}
+{#</form>#}
+{#<form action="..">#}
+{#    <input type="submit" value="Cancel">#}
+{#</form>#}
+{#=======#}
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 
-<body>
-<form id="register" method="post">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-    {% csrf_token %}
+        <!--Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
-    <div>
-        {{ form.username.errors }}
-        {{ form.username.label_tag }} {{ form.username }}
+        <!-- Main jQuery -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <style>
+            .register-bg {
+
+            }
+            .register {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-color: #000;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 10%;
+            }
+            .register h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 50px;
+            text-transform: uppercase;
+            text-align: center;
+            padding-bottom: 50px;
+            }
+            .btn-custom {
+            padding-top: 40px;
+            }
+            .btn-custom input {
+            background-color: #fff;
+            text-transform: uppercase;
+            border-color: #000;
+            border-radius: 8px;
+            }
+            .btn-custom input:hover {
+            background-color: #FF0000;
+            }
+            .form-row {
+            padding-top: 20px;
+            padding-bottom: 50px;
+            }
+        </style>
+    <title>Register a New User</title>
+    </head>
+
+    <body>
+    <div class = "register-bg">
+        <div class="register">
+            <h2>Please Register</h2>
+        <form id="register" method="post">
+        {% load bootstrap %}
+            {% csrf_token %}
+
+            <div class="form-row">
+              {{ form.username|bootstrap_horizontal }}
+            </div>
+
+            <div class="form-row">
+              {{ form.password1|bootstrap_horizontal }}
+            </div>
+
+            <div class="form-row">
+              {{ form.password2|bootstrap_horizontal }}
+            </div>
+
+            <div class="btn-custom">
+                <div class="col-md-8 col-md-offset-2">
+                    <input type="submit" name="submit" value="Register" />
+                </div>
+            </div>
+
+        </form>
+        </div>
     </div>
-    <div>
-        {{ form.password1.errors }}
-        {{ form.password1.label_tag }} {{ form.password1 }}
-    </div>
-    <div>
-        {{ form.password2.errors }}
-        {{ form.password2.label_tag }} {{ form.password2 }}
-    </div>
 
-    <br/>
-    <input type="submit" name="submit" value="Register" />
-</form>
-<form action="..">
-    <input type="submit" value="Cancel">
-</form>
+{#>>>>>>> d23ab1eda10d6c844a8cd560f510cc5a65e40992#}
 
 </body>
 </html>

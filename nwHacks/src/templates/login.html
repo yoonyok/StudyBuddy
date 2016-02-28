@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -57,12 +58,16 @@
           <div class="form-row">
               {{ form.username.errors }}
               {{ form.username|bootstrap_horizontal }}
+
+
           </div>
             <br/><br/>
           <div class="form-row">
+
               {{ form.password.errors }}
               {{ form.password|bootstrap_horizontal }}
               <input type="hidden" name="next" value="{{ next }}" />
+
           </div>
 
             <br/><br/>
@@ -76,6 +81,7 @@
         </div>
 
     </div>
+
     </body>
 </html>
 

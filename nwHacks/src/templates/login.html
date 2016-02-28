@@ -42,6 +42,13 @@
             border-color: #000;
             border-radius: 8px;
             }
+            .btn-custom input:hover {
+            background-color: #FF0000;
+            }
+            .form-row {
+            padding-top: 20px;
+            padding-bottom: 50px;
+            }
         </style>
 
         <title>Login</title>
@@ -56,21 +63,14 @@
           {% csrf_token %}
 
           <div class="form-row">
-              {{ form.username.errors }}
               {{ form.username|bootstrap_horizontal }}
-
-
           </div>
-            <br/><br/>
-          <div class="form-row">
 
-              {{ form.password.errors }}
+          <div class="form-row">
               {{ form.password|bootstrap_horizontal }}
               <input type="hidden" name="next" value="{{ next }}" />
-
           </div>
 
-            <br/><br/>
         <div class="btn-custom">
             <div class="col-md-8 col-md-offset-2">
                 <input type="submit" name="submit" value="Login" />

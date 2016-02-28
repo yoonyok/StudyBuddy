@@ -21,7 +21,7 @@
             }
             .register {
             font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
+            font-size: 20px;
             font-color: #000;
             text-transform: uppercase;
             text-align: center;
@@ -34,15 +34,21 @@
             text-align: center;
             padding-bottom: 50px;
             }
+            .btn-custom {
+            padding-top: 40px;
+            }
             .btn-custom input {
             background-color: #fff;
             text-transform: uppercase;
             border-color: #000;
             border-radius: 8px;
             }
+            .btn-custom input:hover {
+            background-color: #FF0000;
+            }
             .form-row {
             padding-top: 20px;
-            padding-bottom: 20px;
+            padding-bottom: 50px;
             }
         </style>
     <title>Register a New User</title>
@@ -57,19 +63,17 @@
             {% csrf_token %}
 
             <div class="form-row">
-              {{ form.username.errors }}
               {{ form.username|bootstrap_horizontal }}
             </div>
 
             <div class="form-row">
-              {{ form.password1.errors }}
               {{ form.password1|bootstrap_horizontal }}
             </div>
 
             <div class="form-row">
-              {{ form.password2.errors }}
               {{ form.password2|bootstrap_horizontal }}
             </div>
+
             <div class="btn-custom">
                 <div class="col-md-8 col-md-offset-2">
                     <input type="submit" name="submit" value="Register" />

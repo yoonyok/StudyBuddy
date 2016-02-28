@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
 from django.db.models import Q
 from django.contrib import messages
 from django.utils import timezone
+from datetime import datetime
+
 
 def posts_home(request):
     posts = Post.objects.all()
@@ -40,7 +42,11 @@ def post_create(request):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    context_dict = {"post": post}
+    comments = Comment.objects.filter(post=post)
+
+    context_dict = {"post": post, 'comments': comments}
+
+
     return render(request, "post_detail.html", context_dict)
 
 def post_modify(request, slug):
@@ -60,4 +66,30 @@ def post_delete(request, slug):
     post.delete()
     messages.success(request, "post deleted")
     return redirect("../..")
+
+def add_comment(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    form = CommentForm(request.POST or None)
+
+    if "cancel" in request.POST:
+        return redirect('..')
+
+    if form.is_valid():
+        comment = Comment()
+        comment.content = form.cleaned_data['content']
+        comment.timestamp = datetime.now()
+        comment.post = post
+        comment.save()
+        return redirect('..')
+
+    context_dict = {'form':form}
+
+    return render(request, "comment_create.html", context_dict)
+
+
+
+
+
+
+
 

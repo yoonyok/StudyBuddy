@@ -9,7 +9,7 @@ class PostModelAdmin(admin.ModelAdmin):
     list_display_links = ["title", "updated"]
     list_filter = ["updated", "timestamp"]
     search_fields = ["content", "title"]
-    readonly_fields = ["timestamp", "updated", "slug"]
+    readonly_fields = ["timestamp", "updated", "slug", "lat", "lon"]
 
     class Meta:
         model = Post

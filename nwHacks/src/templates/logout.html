@@ -1,10 +1,64 @@
 <!DOCTYPE html>
 <html>
-    <title>Logout</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!--Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+        <!-- Main jQuery -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <style>
+            .login-bg {
+
+            }
+            .logout {
+            font-family: 'Montserrat', sans-serif;
+            }
+            .logout h2 {
+            font-size: 50px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 20%;
+            }
+            .home-button {
+            padding-top: 30px;
+            padding-bottom: 30px;
+            margin-left: 40%;
+            }
+            .btn-custom {
+            background-color: #fff;
+            text-transform: uppercase;
+            border-color: #000;
+            border-radius: 8px;
+            padding-left: 5%;
+            padding-right: 5%
+            }
+            .btn-custom a {
+            font-size: 20px;
+            color: #000;
+            }
+        </style>
+
+        <title>Logout</title>
+    </head>
 
     <body>
-        You have logged out</br>
-        <a href="/posts">Return Home</a>
+        <div class="logout">
+            <h2>You have logged out</h2>
+            <div class="home-button">
+                <button class="btn-custom">
+                    <a href="/posts">Return Home</a>
+                </button>
+            </div>
+        </div>
     </body>
 </html>
 

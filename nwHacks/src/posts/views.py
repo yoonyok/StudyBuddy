@@ -98,7 +98,11 @@ def add_comment(request, slug):
     return render(request, "comment_create.html", context_dict)
 
 
-
+def attend(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    post.attendees = post.attendees + 1
+    post.save()
+    return redirect('../..')
 
 
 

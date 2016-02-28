@@ -3,11 +3,13 @@ from django.utils import timezone
 from django.db import models
 from django.template.defaultfilters import slugify
 from googlemaps import Client
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 
 class Post(models.Model):
+    user = models.ForeignKey(User)
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     course = models.CharField(max_length=100, blank=True, null=True)
@@ -46,6 +48,7 @@ class Post(models.Model):
         return super(Post, self).save(*args, **kwargs)
 
 class Comment(models.Model):
+    user = models.ForeignKey(User)
     content = models.TextField(max_length=1000)
     post = models.ForeignKey(Post)
     timestamp = models.DateTimeField(editable=False)

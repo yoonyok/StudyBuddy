@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.utils import timezone
 from datetime import datetime
 import json
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 
 def posts_home(request):
     posts = Post.objects.all()
@@ -46,7 +48,9 @@ def post_create(request):
     if "cancel" in request.POST:
         return redirect('..')
     if form.is_valid():
-        form.save()
+        temp_form = form.save(commit=False)
+        temp_form.user = request.user
+        temp_form.save()
         messages.success(request, "post success")
         return redirect('..')
 
@@ -95,6 +99,7 @@ def add_comment(request, slug):
         comment.content = form.cleaned_data['content']
         comment.timestamp = datetime.now()
         comment.post = post
+        comment.user = request.user
         comment.save()
         return redirect('..')
 
@@ -110,6 +115,21 @@ def attend(request, slug):
     return redirect('../..')
 
 
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            login(request, user)
+            return redirect('..')
+    else:
+        form = UserCreationForm()
 
+    context_dict = {
+        'form': form,
+    }
+
+    return render(request, 'register.html', context_dict)
 
 

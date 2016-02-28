@@ -24,14 +24,16 @@
             <th>Course</th>
             <th>Location</th>
             <th>Title</th>
-            <th>Timestamp</th>
+            <th>Start Time</th>
+            <th>End Time</th>
         </tr>
         {% for post in posts %}
         <tr>
             <td>{{ post.course }}</td>
-            <td>{{ post.preferred_location }}</td>
+            <td>{{ post.address }}</td>
             <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
-            <td>{{ post.timestamp }}</td>
+            <td>{{ post.start_time}}</td>
+            <td>{{ post.end_time }}</td>
         </tr>
         {% endfor %}
     </table>

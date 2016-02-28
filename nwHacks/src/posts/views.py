@@ -9,6 +9,7 @@ import json
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
+
 def posts_home(request):
     posts = Post.objects.all()
     # search
@@ -43,7 +44,10 @@ def posts_home(request):
     context_dict = {"posts": posts, "post_lats": post_lats, "post_longs": post_longs, "query": query, "post_info": post_info}
     return render(request, "base.html", context_dict)
 
+
 def post_create(request):
+    if not request.user.is_authenticated():
+        return redirect('/posts/login')
     form = PostForm(request.POST or None)
     if "cancel" in request.POST:
         return redirect('..')
@@ -64,7 +68,12 @@ def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     comments = Comment.objects.filter(post=post)
 
-    context_dict = {"post": post, 'comments': comments}
+    context_dict = {
+        "post": post,
+        'comments': comments,
+        "post_info":
+            "Title: " + post.title + "Location: " + post.address
+    }
 
 
     return render(request, "post_detail.html", context_dict)

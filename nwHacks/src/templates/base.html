@@ -12,8 +12,11 @@
             margin: 0 auto;
             padding: 0px 75px 0px 75px;
         }
-        #homebutton, #searchbar {
+        #homebar, #searchbar {
             padding-bottom: 20px;
+        }
+        #homebar {
+            background-color: transparent;
         }
         #map {
             height: 100%;
@@ -23,51 +26,52 @@
 </head>
 
 <body>
-<div id="homebutton">
+
+<div id="homebar">
     <h1><a href="/posts">Study Buddy</a></h1>
     {% if user.is_authenticated %}
-            <h3>Welcome, {{ user.username }}</h3>
-            <a href="logout/">Logout</a>
+        <h3>Welcome, {{ user.username }}</h3>
+        <a href="/posts/logout/">Logout</a>
     {% else %}
-        <a href="login/">Login</a> or <a href="register/">Register</a>
+        <a href="/posts/login/">Login</a> or <a href="/posts/register/">Register</a>
     {% endif %}
 </div>
-    {% block content %}
-        {% if messages %}
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        {% endif %}
-        <form id="searchbar" method ="GET" action="">
-            <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
-            <input type="submit" value="Search"/>
-        </form>
-        <table class="table table-striped">
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+    <form id="searchbar" method ="GET" action="">
+        <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
+        <input type="submit" value="Search"/>
+    </form>
+    <table class="table table-striped">
+        <tr>
+            <th>Course</th>
+            <th>Location</th>
+            <th>Title</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Attendees</th>
+        </tr>
+        {% for post in posts %}
             <tr>
-                <th>Course</th>
-                <th>Location</th>
-                <th>Title</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Attendees</th>
+                <td>{{ post.course }}</td>
+                <td>{{ post.address }}</td>
+                <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
+                <td>{{ post.start_time}}</td>
+                <td>{{ post.end_time }}</td>
+                <td>{{ post.attendees }}</td>
             </tr>
-            {% for post in posts %}
-                <tr>
-                    <td>{{ post.course }}</td>
-                    <td>{{ post.address }}</td>
-                    <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
-                    <td>{{ post.start_time}}</td>
-                    <td>{{ post.end_time }}</td>
-                    <td>{{ post.attendees }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        {#        <p><a href="create/">add a new post</a></p>#}
+        {% endfor %}
+    </table>
+    {#        <p><a href="create/">add a new post</a></p>#}
 
-        {% if user.is_authenticated %}
-            <p><a href="create/">add a new post</a></p>
-        {% endif %}
-    {% endblock content %}
+    {% if user.is_authenticated %}
+        <p><a href="create/">add a new post</a></p>
+    {% endif %}
+{% endblock content %}
 </div>
 
 <p></p>
@@ -78,91 +82,90 @@
 <!--*********************************************************-->
 
 <div id="map"></div>
-<script>
-    // Note: This example requires that you consent to location sharing when
-    // prompted by your browser. If you see the error "The Geolocation service
-    // failed.", it means you probably did not give permission for the browser to
-    // locate you.
+    <script>
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
 
-    function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 49.2827, lng: 123.1207},
-            zoom: 15
-        });
-        var infoWindow = new google.maps.InfoWindow({map: map});
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-
-                var marker = new google.maps.Marker({
-                    position: pos,
-                    map: map,
-                    title: "I'm here"
-                });
-
-                var infowindow = new google.maps.InfoWindow({
-                    content: "You are here"});
-
-                marker.addListener('click',function() {
-                    infowindow.open(map,marker);
-                });
-
-                //infoWindow.setPosition(pos);
-                //infoWindow.setContent('Location found.');
-                infowindow.open(map,marker);
-                map.setCenter(pos);
-            }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 49.2827, lng: 123.1207},
+                zoom: 15
             });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: "I'm here"
+                    });
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: "You are here"});
+
+                    marker.addListener('click',function() {
+                        infowindow.open(map,marker);
+                    });
+
+                    //infoWindow.setPosition(pos);
+                    //infoWindow.setContent('Location found.');
+                    infowindow.open(map,marker);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+            plotAllGeoLocations(map)
+
+
         }
 
-        plotAllGeoLocations(map)
-
-
-    }
-
-    function plotAllGeoLocations(map) {
-        var filteredLats = {{ post_lats|safe }}
-        var filteredLongs = {{ post_longs|safe }}
-        var infos = {{post_info|safe}}
-        for (var i = 0; i < filteredLats.length; i++) {
-            var markerLatLng = new google.maps.LatLng(filteredLats[i], filteredLongs[i]);
-            createMarker(markerLatLng, infos[i],map);
+        function plotAllGeoLocations(map) {
+            var filteredLats = {{ post_lats|safe }}
+            var filteredLongs = {{ post_longs|safe }}
+            var infos = {{post_info|safe}}
+            for (var i = 0; i < filteredLats.length; i++) {
+                var markerLatLng = new google.maps.LatLng(filteredLats[i], filteredLongs[i]);
+                createMarker(markerLatLng, infos[i],map);
+            }
         }
-    }
 
-    function createMarker(latlon, infocontent,map){
-        var marker = new google.maps.Marker({
-            position: latlon,
-            map: map
-        });
-        var infoWindow = new google.maps.InfoWindow({
-            content: infocontent
-        });
-        marker.addListener('click',function() {
-            infoWindow.open(map,marker);
-        });
+        function createMarker(latlon, infocontent,map){
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map
+            });
+            var infoWindow = new google.maps.InfoWindow({
+                content: infocontent
+            });
+            marker.addListener('click',function() {
+                infoWindow.open(map,marker);
+            });
 
-    }
+        }
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                'Error: The Geolocation service failed.' :
-                'Error: Your browser doesn\'t support geolocation.');
-    }
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                    'Error: The Geolocation service failed.' :
+                    'Error: Your browser doesn\'t support geolocation.');
+        }
 
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kwddcJfGsVOwcIdtVOMwsM_m6X-Ys04&signed_in=true&callback=initMap">
-</script>
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kwddcJfGsVOwcIdtVOMwsM_m6X-Ys04&signed_in=true&callback=initMap">
+    </script>
 
 </body>
 </html>

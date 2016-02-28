@@ -33,7 +33,12 @@ def posts_home(request):
         allLongs.append(post.lon)
     post_longs = json.dumps(allLongs)
 
-    context_dict = {"posts": posts, "post_lats": post_lats, "post_longs": post_longs, "query": query}
+    allInfo = []
+    for post in posts:
+        allInfo.append("Title: " + post.title + "Location: " + post.address )
+    post_info = json.dumps(allInfo)
+
+    context_dict = {"posts": posts, "post_lats": post_lats, "post_longs": post_longs, "query": query, "post_info": post_info}
     return render(request, "base.html", context_dict)
 
 def post_create(request):

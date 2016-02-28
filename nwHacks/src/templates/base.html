@@ -20,6 +20,15 @@
 
 <div class = 'container'>
     <h1><a href="/posts">Study Buddy</a></h1>
+   
+    {% if user.is_authenticated %}
+        <h2>Welcome, {{ user.username }}</h2>
+        <a href="logout/">Logout</a>
+    {% else %}
+        <a href="login/">Login</a> or <a href="register/">Register
+    {% endif %}
+
+   
     {% block content %}
     {% if messages %}
     {% for message in messages %}
@@ -50,8 +59,10 @@
         </tr>
         {% endfor %}
     </table>
-    <p><a href="create/">add a new post</a></p>
 
+    {% if user.is_authenticated %}
+    <p><a href="create/">add a new post</a></p>
+    {% endif %}
     {% endblock content %}
 </div>
 

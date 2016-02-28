@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <title>Login</title>
+
+    <body>
+        <form id="login_form" method="post">
+
+          {% csrf_token %}
+
+          <div class="form-row">
+            {{ form.username.errors }}
+            {{ form.username.label_tag }} {{ form.username }}
+          </div>
+          <div class="form-row">
+            {{ form.password.errors }}
+            {{ form.password.label_tag }} {{ form.password }}
+            <input type="hidden" name="next" value="{{ next }}" />
+          </div>
+
+          <br/>
+          <input type="submit" name="submit" value="Login" />
+        </form>
+
+        <a href="../register">Register</a>
+    </body>
+</html>
+

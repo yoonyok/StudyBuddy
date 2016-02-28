@@ -4,6 +4,7 @@
     <title>{{ post.title }}</title>
 
     <h1>{{ post.title }}</h1>
+    <p>Author: {{ post.user.username }}</p>
     <p>Course: {{ post.course }} </p>
     <p>Time: {{ post.start_time }} - {{ post.end_time }}</p>
     <p>Preferred Location:  {{ post.preferred_location }}  </p>
@@ -11,14 +12,20 @@
     <p>Content: {{ post.content }} </p>
     <p>Created: {{ post.timestamp }} </p>
     <p>Modified: {{ post.updated }} </p>
-
-    <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
-    <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>
-    <button><a href="comment/" style="text-decoration:none;"> post comment </a></button>
-    <button><a href="attend/" style="text-decoration:none;"> attend </a></button>
+    
+    {% if user.is_authenticated %}
+        {% if user.username == post.user.username %}
+            <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
+            <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>
+            
+        {% endif %}
+            <button><a href="comment/" style="text-decoration:none;"> post comment </a></button>
+            <button><a href="attend/" style="text-decoration:none;"> attend </a></button>
+    {% endif %}
 
     <h1>Comment Section</h1>
     {% for comment in comments %}
+        <p>Author: {{ comment.user.username }}</p>
         <p>{{ comment.content }}</p>
         <p>{{ comment.timestamp }}</p><br>
     {% endfor %}

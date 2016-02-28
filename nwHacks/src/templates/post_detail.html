@@ -27,9 +27,10 @@
             {% if user.username == post.user.username %}
                 <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
                 <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>
+            {% else %}
+            <button><a href="attend/" style="text-decoration:none;"> attend </a></button>
             {% endif %}
             <button><a href="comment/" style="text-decoration:none;"> post comment </a></button>
-            <button><a href="attend/" style="text-decoration:none;"> attend </a></button>
         {% endif %}
         <h1>Comment Section</h1>
         {% for comment in comments %}

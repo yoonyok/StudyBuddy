@@ -1,41 +1,81 @@
 
 <!DOCTYPE html>
 <html>
-    <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"></head>
-    <title>Login</title>
-    <style>
-        html, body {
-            height: 100%;
-            width: 700px;
-            margin: 0 auto;
-            padding: 75px 75px 0px 75px;
-        }
-        #map {
-            height: 100%;
-        }
-    </style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!--Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+        <!-- Main jQuery -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <style>
+            .login-bg {
+
+            }
+            .login {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-color: #000;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 10%;
+            }
+            .login h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 50px;
+            text-transform: uppercase;
+            text-align: center;
+            padding-bottom: 50px;
+            }
+            .btn-custom input {
+            background-color: #fff;
+            text-transform: uppercase;
+            border-color: #000;
+            border-radius: 8px;
+            }
+        </style>
+
+        <title>Login</title>
+    </head>
 
     <body>
-    <h2>Please sign in</h2>
+    <div class="login-bg">
+        <div class="login">
+            <h2>Please Login</h2>
         <form id="login_form" method="post">
-
+        {% load bootstrap %}
           {% csrf_token %}
 
           <div class="form-row">
-            {{ form.username.errors }}
-            {{ form.username.label_tag }} {{ form.username }}
+              {{ form.username.errors }}
+              {{ form.username|bootstrap_horizontal }}
           </div>
+            <br/><br/>
           <div class="form-row">
-            {{ form.password.errors }}
-            {{ form.password.label_tag }} {{ form.password }}
-            <input type="hidden" name="next" value="{{ next }}" />
+              {{ form.password.errors }}
+              {{ form.password|bootstrap_horizontal }}
+              <input type="hidden" name="next" value="{{ next }}" />
           </div>
 
-          <br/>
-          <input type="submit" name="submit" value="Login" />
-        </form>
+            <br/><br/>
+        <div class="btn-custom">
+            <div class="col-md-8 col-md-offset-2">
+                <input type="submit" name="submit" value="Login" />
+            </div>
+        </div>
 
-        <a href="../register">Register</a>
+        </form>
+        </div>
+
+    </div>
     </body>
 </html>
 

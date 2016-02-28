@@ -19,10 +19,13 @@ def posts_home(request):
 
 def post_create(request):
     form = PostForm(request.POST or None)
+    if "cancel" in request.POST:
+        return redirect('..')
     if form.is_valid():
         form.save()
         messages.success(request, "post success")
         return redirect('..')
+
 
     context_dict = {
         "form": form,

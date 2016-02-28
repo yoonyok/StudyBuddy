@@ -12,6 +12,14 @@ class Post(models.Model):
     preferred_location = models.CharField(max_length=50, blank=True, null=True)
     updated = models.DateTimeField(editable=False)
     timestamp = models.DateTimeField(editable=False)
+    phone_number = models.CharField(max_length=100, blank=True, null=True)
+    date = models.CharField(max_length=100)
+    start_time = models.CharField(max_length=100)
+    end_time = models.CharField(max_length=100)
+    address_number = models.CharField(max_length=100)
+    street_name = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100)
     # views = models.IntegerField() possible use later for counting number of times a post is viewed
     slug = models.SlugField(unique=True, editable=False)  # used for generating readable urls
 
@@ -27,3 +35,4 @@ class Post(models.Model):
         self.updated = timezone.now()
         self.slug = slugify(self.title)
         return super(Post, self).save(*args, **kwargs)
+

@@ -9,9 +9,13 @@ class PostForm(forms.ModelForm):
             'title',
             'course',
             'content',
-            'preferred_location'
+            'preferred_location',
+            'phone_number',
+            'date',
+            'start_time',
+            'end_time',
+            'address_number',
+            'street_name',
+            'postal_code',
+            'city',
         ]
-
-
-
-

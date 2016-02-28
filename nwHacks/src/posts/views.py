@@ -11,7 +11,8 @@ def posts_home(request):
     if query:
         posts = posts.filter(
             Q(title__icontains=query) |
-            Q(content__icontains=query)
+            Q(content__icontains=query) |
+            Q(course__icontains=query)
         ).distinct()
     context_dict = {"posts": posts, "query": query}
     return render(request, "base.html", context_dict)

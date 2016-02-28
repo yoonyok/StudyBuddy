@@ -1,6 +1,8 @@
 *.DS_Store
 .idea/
 db.sqlite3
+nwHacks/src/posts/migrations
+
 
 # Byte-compiled / optimized / DLL files
 **__pycache__/

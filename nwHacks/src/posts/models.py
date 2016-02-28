@@ -20,6 +20,7 @@ class Post(models.Model):
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100, blank=True, null=True)
+    # views = models.IntegerField() possible use later for counting number of times a post is viewed
     slug = models.SlugField(unique=True, editable=False)  # used for generating readable urls
     lat = models.FloatField(blank=True, null=True, editable=False)
     lon = models.FloatField(blank=True, null=True, editable=False)

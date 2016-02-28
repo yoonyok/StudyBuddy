@@ -104,28 +104,20 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
-        var geocoder = new google.maps.Geocoder();
-        var filteredPosts = {{ posts_list|safe }};
-        var fullAddress;
-        for (var i = 0 ; filteredPosts.length; i++) {
-            fullAddress = filteredPosts[i];
-            geocodeAddress(geocoder, map);
-        }
+        plotAllGeoLocations(map)
+
+
       }
 
-      function geocodeAddress(geocoder, resultsMap) {
-            geocoder.geocode(fullAddress, function(results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                resultsMap.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: resultsMap,
-                    position: results[0].geometry.location
-                });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
+      function plotAllGeoLocations(map) {
+        var filteredLats = {{ post_lats|safe }}
+        var filteredLongs = {{ post_longs|safe }}
+        for (var i = 0; i < filteredLats.length; i++) {
+            var marker = new google.maps.Marker({
+                position: {lat: filteredLats[i], lng: filteredLongs[i]},
+                map: map,
             });
-
+        }
       }
 
 

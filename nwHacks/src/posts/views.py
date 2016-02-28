@@ -21,13 +21,19 @@ def posts_home(request):
     for post in posts:
         if post.end_time < timezone.now():
             post.delete()
-
     allPosts = []
-    for post in posts:
-        allPosts.append(post.address_number + " " + post.street_name + " " + post.city)
-    posts_list = json.dumps(allPosts)
 
-    context_dict = {"posts": posts,"posts_list":posts_list, "query": query}
+    allLats = []
+    for post in posts:
+        allLats.append(post.lat)
+    post_lats = json.dumps(allLats)
+
+    allLongs = []
+    for post in posts:
+        allLongs.append(post.long)
+    post_longs = json.dumps(allLongs)
+
+    context_dict = {"posts": posts, "post_lats": post_lats, "post_longs": post_longs, "query": query}
     return render(request, "base.html", context_dict)
 
 def post_create(request):

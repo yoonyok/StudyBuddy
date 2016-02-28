@@ -25,7 +25,4 @@ urlpatterns = [
     url(r'^(?P<slug>[\w\-]+)/delete/$', post_delete, name="post_delete"),
     url(r'^(?P<slug>[\w\-]+)/comment/$', add_comment, name="add_comment"),
     url(r'^(?P<slug>[\w\-]+)/attend/$', attend, name="attend"),
-
-
-    
 ]

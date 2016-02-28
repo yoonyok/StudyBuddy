@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
     course = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
     preferred_location = models.CharField(max_length=50, blank=True, null=True)

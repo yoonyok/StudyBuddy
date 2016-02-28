@@ -3,12 +3,14 @@
 {% block content %}
     <title>{{ post.title }}</title>
 
-    <h1> {{ post.title }} </h1>
-    <p> Course: {{ post.course }} </p>
-    <p> Content: {{ post.content }} </p> <br/>
-    <p> Preferred Location:  {{ post.preferred_location }}  </p><br/>
-    <p> Created: {{ post.timestamp }} </p> <br/>
-    <p> Modified: {{ post.updated }} </p> <br/>
+    <h1>{{ post.title }}</h1>
+    <p>Course: {{ post.course }} </p>
+    <p>Time: {{ post.start_time }} - {{ post.end_time }}</p>
+    <p>Preferred Location:  {{ post.preferred_location }}  </p>
+    <p>Author: {{ post.author }}</p>
+    <p>Content: {{ post.content }} </p>
+    <p>Created: {{ post.timestamp }} </p>
+    <p>Modified: {{ post.updated }} </p>
 
     <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
     <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>

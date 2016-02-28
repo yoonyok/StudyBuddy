@@ -8,8 +8,8 @@
 
 
 <div class = 'container'>
+    <h1><a href="/posts">Study Buddy</a></h1>
     {% block content %}
-    <h1>Thirsty for Study</h1>
     {% if messages %}
     {% for message in messages %}
     {{ message }}
@@ -19,12 +19,22 @@
         <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
         <input type="submit" value="Search"/>
     </form>
-
+    <table border="1">
+        <tr>
+            <th>Course</th>
+            <th>Location</th>
+            <th>Title</th>
+            <th>Timestamp</th>
+        </tr>
         {% for post in posts %}
-        <a href="{{ post.slug }}"> {{ post.title }}</a> <br/>
-
+        <tr>
+            <td>{{ post.course }}</td>
+            <td>{{ post.preferred_location }}</td>
+            <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
+            <td>{{ post.timestamp }}</td>
+        </tr>
         {% endfor %}
-
+    </table>
     <p><a href="create/">add a new post</a></p>
 
     {% endblock content %}

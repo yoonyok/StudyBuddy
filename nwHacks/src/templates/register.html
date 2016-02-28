@@ -1,28 +1,44 @@
 <!DOCTYPE html>
+
 <html>
-    <title>Register a New User</title>
+<head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"></head>
+<title>Register a New User</title>
+<style>
+    html, body {
+        height: 100%;
+        width: 700px;
+        margin: 0 auto;
+        padding: 75px 75px 0px 75px;
+    }
+    #map {
+        height: 100%;
+    }
+</style>
 
-    <body>
-        <form id="register" method="post">
+<body>
+<form id="register" method="post">
 
-            {% csrf_token %}
+    {% csrf_token %}
 
-            <div>
-              {{ form.username.errors }}
-              {{ form.username.label_tag }} {{ form.username }}
-            </div>
-            <div>
-              {{ form.password1.errors }}
-              {{ form.password1.label_tag }} {{ form.password1 }}
-            </div>
-            <div>
-              {{ form.password2.errors }}
-              {{ form.password2.label_tag }} {{ form.password2 }}
-            </div>
+    <div>
+        {{ form.username.errors }}
+        {{ form.username.label_tag }} {{ form.username }}
+    </div>
+    <div>
+        {{ form.password1.errors }}
+        {{ form.password1.label_tag }} {{ form.password1 }}
+    </div>
+    <div>
+        {{ form.password2.errors }}
+        {{ form.password2.label_tag }} {{ form.password2 }}
+    </div>
 
-            <br/>
-            <input type="submit" name="submit" value="Register" />
-        </form>
+    <br/>
+    <input type="submit" name="submit" value="Register" />
+</form>
+<form action="..">
+    <input type="submit" value="Cancel">
+</form>
 
-    </body>
+</body>
 </html>

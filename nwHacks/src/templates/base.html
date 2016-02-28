@@ -9,8 +9,11 @@
         html, body {
             height: 100%;
             width: 100%;
-            margin: 0;
+            margin: 0 auto;
             padding: 0px 75px 0px 75px;
+        }
+        #homebutton, #searchbar {
+            padding-bottom: 20px;
         }
         #map {
             height: 100%;
@@ -18,63 +21,24 @@
     </style>
     <title>Thirsty for Study</title>
 </head>
+
 <body>
-
-
-<div class = 'container'>
+<div id="homebutton">
     <h1><a href="/posts">Study Buddy</a></h1>
-
     {% if user.is_authenticated %}
-        <div>
-        <h3>Welcome, {{ user.username }}</h3>
-        <a href="logout/">Logout</a>
-        </div>
+            <h3>Welcome, {{ user.username }}</h3>
+            <a href="logout/">Logout</a>
     {% else %}
         <a href="login/">Login</a> or <a href="register/">Register</a>
     {% endif %}
-    {##}
-    {#   #}
-    {#    {% block content %}#}
-    {#    {% if messages %}#}
-    {#    {% for message in messages %}#}
-    {#    {{ message }}#}
-    {#    {% endfor %}#}
-    {#    {% endif %}#}
-    {#    <p></p>#}
-    {#    <form method ="GET" action="">#}
-    {#        <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>#}
-    {#        <input type="submit" value="Search"/>#}
-    {#    </form>#}
-    {#    <p></p>#}
-    {#    <table border="1">#}
-    {#        <tr>#}
-    {#            <th>Course</th>#}
-    {#            <th>Location</th>#}
-    {#            <th>Title</th>#}
-    {#            <th>Start Time</th>#}
-    {#            <th>End Time</th>#}
-    {#            <th>Attendees</th>#}
-    {#        </tr>#}
-    {#        {% for post in posts %}#}
-    {#        <tr>#}
-    {#            <td>{{ post.course }}</td>#}
-    {#            <td>{{ post.address }}</td>#}
-    {#            <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>#}
-    {#            <td>{{ post.start_time}}</td>#}
-    {#            <td>{{ post.end_time }}</td>#}
-    {#            <td>{{ post.attendees }}</td>#}
-    {#        </tr>#}
-    {#        {% endfor %}#}
-    {#    </table>#}
-
-    {#    <h1 ><a href="/posts">Study Buddy</a></h1>#}
+</div>
     {% block content %}
         {% if messages %}
             {% for message in messages %}
                 {{ message }}
             {% endfor %}
         {% endif %}
-        <form method ="GET" action="">
+        <form id="searchbar" method ="GET" action="">
             <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
             <input type="submit" value="Search"/>
         </form>

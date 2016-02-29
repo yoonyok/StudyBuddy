@@ -63,6 +63,9 @@
             padding-left: 5%;
             padding-right: 5%
         }
+        .btn-custom:hover {
+            background-color: #3b92a1;
+        }
         .btn-custom a {
             font-size: 16px;
             color: #000;
@@ -141,6 +144,15 @@
             <input type="submit" value="Search"/>
         </form>
         <table class="table table-striped">
+
+            <tr>
+                <th>Course</th>
+                <th>Address</th>
+                <th>Title</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Attendee</th>
+            </tr>
             <tr>
                 <td>{{ post.course }}</td>
                 <td>{{ post.address }}</td>
@@ -150,14 +162,14 @@
                 <td>{{ post.attendees }}</td>
             </tr>
             {% for post in posts %}
-                <tr>
+            <tr>
                     <td>{{ post.course }}</td>
                     <td>{{ post.address }}</td>
                     <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
                     <td>{{ post.start_time}}</td>
                     <td>{{ post.end_time }}</td>
                     <td>{{ post.attendees }}</td>
-                </tr>
+            </tr>
             {% endfor %}
         </table>
 
@@ -238,7 +250,7 @@
             }
         }
 
-        function createMarker(latlon, infocontent,map){
+        function createMarker(latlon, infocontent, map){
             var marker = new google.maps.Marker({
                 position: latlon,
                 map: map
